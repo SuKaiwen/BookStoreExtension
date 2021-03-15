@@ -1,0 +1,36 @@
+﻿@model BookStore.WebClient.ViewModels.DetailsViewModel
+@{
+    ViewBag.Title = "GetDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Book Details</h1>
+
+<h2>Title: </h2>
+@Model.media.Title
+<h2>Likes: </h2>@Model.media.LikeCount
+<h2>Dislikes: </h2>@Model.media.DislikeCount
+<br />
+
+@Html.ActionLink("Like", "Rate", "Store", new { media = @Model.media.Id, user = "nav-bar text nav-bar link", rating = true }, null)
+
+@Html.ActionLink("Dislike", "Rate", "Store", new { media = @Model.media.Id, user = "nav-bar text nav-bar link", rating = false }, null)
+
+@using (Html.BeginForm("AddToCart", "Cart"))
+{
+    @Html.Hidden("pMediaId", @Model.media.Id)
+    @Html.Hidden("pReturnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
+    <input type="submit" value="+ Add to Cart" />
+}
+
+<h2>Recommended Books:</h2>
+
+@foreach(var media in @Model.recommends)
+{
+    <tr>
+        <td>
+            @media.Title
+        </td>
+    </tr>
+}
+

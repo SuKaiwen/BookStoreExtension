@@ -1,0 +1,28 @@
+﻿@model BookStore.WebClient.ViewModels.CatalogueViewModel
+
+@{
+    ViewBag.Title = "ListMedia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List Media</h2>
+
+<table>
+    <tr>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Items)
+    {
+        
+        <tr>
+            <td>
+                @item.Title |
+                Price: $@item.Price |
+                Quantity: @item.StockCount
+                @Html.ActionLink("[ View more: " + item.Title + " ]", "GetDetails", "Store", new { id = item.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+
